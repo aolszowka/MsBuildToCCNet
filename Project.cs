@@ -12,8 +12,8 @@ namespace Rodemeyer.MsBuildToCCNet
         internal Project(string file)
         {
             File = file;
-            
-            errors   = new List<Error>();
+
+            errors = new List<Error>();
             warnings = new List<Warning>();
             messages = new List<Message>();
         }
@@ -88,18 +88,18 @@ namespace Rodemeyer.MsBuildToCCNet
         public readonly int Column;
     }
 
-    internal class Warning: ErrorOrWarningBase
+    internal class Warning : ErrorOrWarningBase
     {
-        public Warning(BuildWarningEventArgs e) 
-            : base (e.Code, e.Message, e.File, e.LineNumber, e.ColumnNumber)
-        {}
+        public Warning(BuildWarningEventArgs e)
+            : base(e.Code, e.Message, e.File, e.LineNumber, e.ColumnNumber)
+        { }
     }
 
-    internal class Error : ErrorOrWarningBase 
+    internal class Error : ErrorOrWarningBase
     {
         public Error(BuildErrorEventArgs e)
             : base(e.Code, e.Message, e.File, e.LineNumber, e.ColumnNumber)
-        {}
+        { }
     }
 
     internal class Message

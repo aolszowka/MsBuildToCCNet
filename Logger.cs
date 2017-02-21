@@ -49,7 +49,7 @@ namespace Rodemeyer.MsBuildToCCNet
                 this.logfile = base.Parameters.Split(';')[0]; // ignore all parameters but the first (which is the name of the file to log to)
             else
                 this.logfile = "msbuild-output.xml"; // default, in case we are not startet from a ccnet task
-           
+
             this.commonPrefix = Environment.CurrentDirectory;
             this.commonPrefixLength = commonPrefix.Length + 1;
 
@@ -193,7 +193,7 @@ namespace Rodemeyer.MsBuildToCCNet
 
         private void OnProjectStarted(object sender, ProjectStartedEventArgs e)
         {
-            if ( (currentSolution == null || currentSolution.EndsWith(".csproj")) && e.ProjectFile.EndsWith(".sln"))
+            if ((currentSolution == null || currentSolution.EndsWith(".csproj")) && e.ProjectFile.EndsWith(".sln"))
             {
                 currentSolution = RemoveCommonPrefix(e.ProjectFile);
             }
