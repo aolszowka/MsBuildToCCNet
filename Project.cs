@@ -1,84 +1,87 @@
+// <copyright file="Project.cs" company="Christian Rodemeyer">
 // Copyright © 2006 by Christian Rodemeyer (mailto:christian@atombrenner.de)
-
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.Build.Framework;
+// Additions © 2017 by Ace Olszowka (GitHub @aolszowka)
+// </copyright>
 
 namespace Rodemeyer.MsBuildToCCNet
 {
+    using System.Collections.Generic;
+    using Microsoft.Build.Framework;
+
     internal class Project
     {
         internal Project(string file)
         {
-            File = file;
+            this.File = file;
 
-            errors = new List<Error>();
-            warnings = new List<Warning>();
-            messages = new List<Message>();
+            this.errors = new List<Error>();
+            this.warnings = new List<Warning>();
+            this.messages = new List<Message>();
         }
 
         public readonly string File;
 
         public IEnumerable<Error> Errors
         {
-            get { return errors; }
+            get { return this.errors; }
         }
+
         private List<Error> errors;
 
         public IEnumerable<Warning> Warnings
         {
-            get { return warnings; }
+            get { return this.warnings; }
         }
+
         private List<Warning> warnings;
 
         public IEnumerable<Message> Messages
         {
-            get { return messages; }
+            get { return this.messages; }
         }
+
         private List<Message> messages;
 
         public int ErrorCount
         {
-            get { return errors.Count; }
+            get { return this.errors.Count; }
         }
 
         public int WarningCount
         {
-            get { return warnings.Count; }
+            get { return this.warnings.Count; }
         }
 
         public int MessageCount
         {
-            get { return messages.Count; }
+            get { return this.messages.Count; }
         }
 
         public void Add(Error e)
         {
-            errors.Add(e);
+            this.errors.Add(e);
         }
 
         public void Add(Warning w)
         {
-            warnings.Add(w);
+            this.warnings.Add(w);
         }
 
         public void Add(Message m)
         {
-            messages.Add(m);
+            this.messages.Add(m);
         }
-
     }
 
     internal class ErrorOrWarningBase
     {
         protected ErrorOrWarningBase(string code, string text, string file, int line, int column)
         {
-            Code = code;
-            Text = text;
-            File = file == "" ? null : file;
-            Line = line;
-            Column = column;
+            this.Code = code;
+            this.Text = text;
+            this.File = file == string.Empty ? null : file;
+            this.Line = line;
+            this.Column = column;
         }
 
         public readonly string Code;
@@ -92,22 +95,24 @@ namespace Rodemeyer.MsBuildToCCNet
     {
         public Warning(BuildWarningEventArgs e)
             : base(e.Code, e.Message, e.File, e.LineNumber, e.ColumnNumber)
-        { }
+        {
+        }
     }
 
     internal class Error : ErrorOrWarningBase
     {
         public Error(BuildErrorEventArgs e)
             : base(e.Code, e.Message, e.File, e.LineNumber, e.ColumnNumber)
-        { }
+        {
+        }
     }
 
     internal class Message
     {
         public Message(BuildMessageEventArgs e)
         {
-            Importance = e.Importance;
-            Text = e.Message;
+            this.Importance = e.Importance;
+            this.Text = e.Message;
         }
 
         public readonly string Text;
